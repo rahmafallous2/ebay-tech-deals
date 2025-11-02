@@ -1,4 +1,3 @@
-// Replace <USERNAME> and <REPO> with your actual GitHub username and repository name
 const csvUrl = "https://raw.githubusercontent.com/rahmafallous2/ebay-tech-deals/main/cleaned_ebay_deals.csv";
 
 async function fetchCsvData() {
@@ -7,12 +6,12 @@ async function fetchCsvData() {
     if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
     const csvText = await response.text();
 
-    // PapaParse handles multi-line cells and commas inside quotes
+    // Parse CSV properly
     const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-    
-    // Remove rows that are mostly empty or incomplete
+
+    // Optional: remove mostly-empty rows
     const cleanData = parsed.data.filter(row => row.title || row.price || row.item_url);
-    
+
     createTable(cleanData);
   } catch (error) {
     console.error("Error fetching CSV data:", error);
