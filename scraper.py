@@ -88,6 +88,20 @@ for product in products:
         "shipping": shipping,
         "item_url": item_url
     })
+print("Products found:", len(products))
+for product in products[:5]:  # check first 5 only
+    try:
+        title = product.find_element(By.XPATH, ".//h3").text
+        print("✅ Title:", title[:60])
+    except:
+        print("❌ Title missing")
+
+    try:
+        price = product.find_element(By.XPATH, ".//*[contains(@class,'first')]").text
+        print("✅ Price:", price)
+    except:
+        print("❌ Price missing")
+
 
 df = pd.DataFrame(data)
 file_name = "ebay_tech_deals.csv"
